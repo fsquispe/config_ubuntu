@@ -1,0 +1,31 @@
+#EDITAR MANUALMENTE
+###############################################################################
+############# CONFIGURADOR SERVER ESTANDAR LAMP UBUNTU 14.04.3 ################
+################################################################## v 0.3 ######
+##### ejecutar como root (sin sudo) ###########################################
+##### requisitos: #############################################################
+##### *) ssh y ssh_keys instaladas ############################################
+##### *) particiones extras montadas (swap) ###################################
+##### *) dnsmasq y networking funcionado ######################################
+##### *) OBLIGATORIO: password mariadb/mysql inicial 123456 ###################
+##### *) OPCIONAL: bloquear ipv6 ##############################################
+##### *) OPCIONAL: kernel updates y grub ######################################
+###############################################################################
+###############################################################################
+
+# apt -y install dnsmasq
+# wget -N https://dl.dropboxusercontent.com/u/1201303/trusty.3/manual/tmpl/dnsmasq.conf
+# wget -N https://dl.dropboxusercontent.com/u/1201303/trusty.3/manual/tmpl/resolv.conf
+# wget https://dl.dropboxusercontent.com/u/1201303/trusty.3/manual/tmpl/resolv.dnsmasq.conf
+# editar o wget -N https://dl.dropboxusercontent.com/u/1201303/trusty.3/manual/tmpl/interfaces
+# apt-get -y remove --purge resolvconf
+# reboot recomendado
+# useradd -m -s /bin/bash u0301edd
+# passwd u0301edd
+# chmod 700 u0301edd/
+# wget -N https://dl.dropboxusercontent.com/u/1201303/trusty.3/manual/tmpl/sshd_config
+# vim sshd_config
+# reboot
+# ssh-copy-id -i .ssh/id_rsa.pub u0301edd@kvm512.64k.in -p9122
+# ingresar por ssh, restringir root, y uso de passwords (solo ssh-key)
+# reboot y probar todo

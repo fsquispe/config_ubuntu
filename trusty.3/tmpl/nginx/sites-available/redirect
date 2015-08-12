@@ -1,0 +1,5 @@
+#server {
+#	listen MY_IP:80;
+#	server_name www.domain.com;
+#	return 301 http://domain.com$request_uri;
+#}
