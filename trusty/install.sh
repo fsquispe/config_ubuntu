@@ -1,22 +1,53 @@
 #!/bin/sh
 
 ###############################################################################
-############# CONFIGURADOR SERVER ESTANDAR LAMP UBUNTU 14.04.3 ################
+############# CONFIGURADOR SERVER ESTANDAR LAMP UBUNTU 14.04 ##################
 ################################################################## v 0.2 ######
 ##### ejecutar como root (sin sudo) ###########################################
 ##### requisitos: #############################################################
 ##### *) ssh y ssh_keys instaladas ############################################
 ##### *) particiones extras montadas (/home/mysql, swap) ######################
-##### *) dnsmasq y networking funcionado ######################################
+##### *) resolv.conf contiene los dns validos (google o isp) ##################
 ##### *) OBLIGATORIO: password mariadb/mysql inicial 123456 ###################
 ##### *) OPCIONAL: bloquear ipv6 ##############################################
 ###############################################################################
 ###############################################################################
 
 
+
 ##### PARAMETROS ##############################################################
-read -p "hostname: " MY_HOSTNAME
-read -p "ip principal: " MY_IP
+UPI_PWD=$(pwd)
+read -p "hostname: " UPI_HOSTNAME
+read -p "interfaz red (ex eth0): " UPI_LAN_INTERFAZ
+read -p "ip principal: " UPI_IP
+read -p "gateway: " UPI_GATEWAY
+read -p "mascara red: " UPI_NETMASK
+
+
+
+##### DNSMASQ #################################################################
+apt -y install dnsmasq
+cd /etc/
+cp resolv.conf resolv.dnsmasq.conf
+wget https://dl.dropboxusercontent.com/u/1201303/trusty/resolv.conf.tmpl
+mv resolv.conf.tmpl resolv.conf
+wget https://dl.dropboxusercontent.com/u/1201303/trusty/dnsmasq.conf.tmpl
+mv dnsmasq.conf.tmpl dnsmasq.conf
+service dnsmasq restart
+
+
+
+##### NETWORKING ##############################################################
+cd /etc/network/
+wget https://dl.dropboxusercontent.com/u/1201303/trusty/interfaces.tmpl
+rm interfaces
+sed -e s/"MY_LAN_INTERFAZ"/"$MY_LAN_INTERFAZ"/g interfaces.tmpl > interfaces.tmpl.1
+sed -e s/"MY_IP"/"$MY_IP"/g interfaces.tmpl.1 > interfaces.tmpl.2
+sed -e s/"MY_GATEWAY"/"$MY_GATEWAY"/g interfaces.tmpl.2 > interfaces.tmpl.3
+sed -e s/"MY_NETMASK"/"$MY_NETMASK"/g interfaces.tmpl.3 > interfaces
+rm interfaces.*
+service networking restart
+
 
 
 ##### LANG ####################################################################
