@@ -1,0 +1,7 @@
+[mysql]
+user=root
+password=123456
+
+[mysqldump]
+user=root
+password=123456

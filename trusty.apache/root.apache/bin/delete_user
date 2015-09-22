@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# eliminar usuario  y sus respectivas entradas http, php-fpm, logs
+
+read -p "username: " uname
+
+rm /etc/apache2/sites-enabled/$uname.conf
+service apache2 restart
+rm /etc/apache2/sites-available/$uname.conf
+rm /etc/php5/fpm/pool.d/$uname.conf
+service php5-fpm restart
+rm /var/log/apache2/$uname*
+userdel -r $uname
+
+echo "hecho"
