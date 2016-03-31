@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# crear usuario linux y sus respectivas entradas http, mysql, logs
+
+read -p "username: " uname
+read -p "domain: " domain
+
+if useradd -m -s /bin/bash $uname
+	then
+	passwd $uname
+		
+	mkdir /home/$uname/tmp
+	mkdir /home/$uname/www
+	chmod 710 /home/$uname
+	chown $uname:www-data /home/$uname
+	chown -R $uname:$uname /home/$uname/tmp
+	chown -R $uname:$uname /home/$uname/www
+	
+	sed -e s/"uname"/"$uname"/g /root/tmpl/fpm.conf > /root/tmpl/fpm.conf.1
+	sed -e s/"domain"/"$domain"/g /root/tmpl/fpm.conf.1 > /etc/php5/fpm/pool.d/$uname.conf
+	rm /root/tmpl/fpm.conf.*
+	chmod 644 /etc/php5/fpm/pool.d/$uname.conf
+
+	sed -e s/"uname"/"$uname"/g /root/tmpl/vhost.fpm.conf > /root/tmpl/vhost.fpm.conf.1
+	sed -e s/"domain"/"$domain"/g /root/tmpl/vhost.fpm.conf.1 > /etc/nginx/sites-available/$uname
+	rm /root/tmpl/vhost.fpm.conf.*
+	chmod 644 /etc/nginx/sites-available/$uname
+	ln -s /etc/nginx/sites-available/$uname /etc/nginx/sites-enabled/$uname
+
+	touch /var/log/nginx/$uname_access.log
+	touch /var/log/nginx/$uname_error.log
+	
+	service php5-fpm restart
+	service nginx restart
+	echo "nginx configurado"
+else
+	echo "error al crear usuario"
+fi

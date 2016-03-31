@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# crear usuario linux y sus respectivas entradas http, mysql, logs
+
+read -p "username: " uname
+read -p "domain: " domain
+
+if useradd -m -s /bin/bash $uname
+	then
+	passwd $uname
+		
+	mkdir /home/$uname/tmp
+	mkdir /home/$uname/www
+	chmod 710 /home/$uname
+	chown $uname:www-data /home/$uname
+	chown -R $uname:$uname /home/$uname/tmp
+	chown -R $uname:$uname /home/$uname/www
+
+	sed -e s/"uname"/"$uname"/g /root/tmpl/vhost.static.conf > /root/tmpl/vhost.static.conf.1
+	sed -e s/"domain"/"$domain"/g /root/tmpl/vhost.static.conf.1 > /etc/nginx/sites-available/$uname
+	rm /root/tmpl/vhost.static.conf.*
+	chmod 644 /etc/nginx/sites-available/$uname
+	ln -s /etc/nginx/sites-available/$uname /etc/nginx/sites-enabled/$uname
+
+	touch /var/log/nginx/$uname_access.log
+	touch /var/log/nginx/$uname_error.log
+	
+	service nginx restart
+	echo "nginx configurado"
+else
+	echo "error al crear usuario"
+fi

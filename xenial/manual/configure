@@ -1,0 +1,10 @@
+# Configuración manual
+
+*) ssh y ssh_keys instaladas
+*) particiones extras montadas (swap,mysql,ssd)
+*) networking funcionado
+*) OBLIGATORIO: password inicial mysql/mariadb: "123456"
+*) OPCIONAL: bloquear ipv6
+*) OPCIONAL: kernel updates y grub
+
+# ssh-copy-id -i .ssh/id_rsa.pub rootd@host -p9122
