@@ -3,8 +3,9 @@
 *) ssh y ssh_keys instaladas
 *) particiones extras montadas (swap,mysql,ssd)
 *) networking funcionado
-*) OBLIGATORIO: password inicial mysql/mariadb: "123456"
-*) OPCIONAL: bloquear ipv6
+*) password inicial mysql/mariadb: "123456"
+*) OPCIONAL: ntp server ntp.ubuntu.com (/etc/systemd/timesyncd.conf)
+*) OPCIONAL: bloquear ipv6 (http://www.binarytides.com/disable-ipv6-ubuntu/)
 *) OPCIONAL: kernel updates y grub
 
 # ssh-copy-id -i .ssh/id_rsa.pub rootd@host -p9122

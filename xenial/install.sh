@@ -57,6 +57,7 @@ update-rc.d -f apparmor remove
 apt remove --purge lxc -y
 apt remove --purge lxcfs -y
 apt remove --purge lxc* -y
+apt remove --purge mdadm -y
 apt-get -y remove --purge apparmor apparmor-utils
 apt-get -y remove --purge lib-apparmor
 apt-get -y remove --purge consolekit
