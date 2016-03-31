@@ -6,6 +6,7 @@
 *) password inicial mysql/mariadb: "123456"
 *) OPCIONAL: ntp server ntp.ubuntu.com (/etc/systemd/timesyncd.conf)
 *) OPCIONAL: bloquear ipv6 (http://www.binarytides.com/disable-ipv6-ubuntu/)
+*) OPCIONAL: Tweak Swap Settings (https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04)
 *) OPCIONAL: kernel updates y grub
 
-# ssh-copy-id -i .ssh/id_rsa.pub rootd@host -p9122
+# ssh-copy-id -i .ssh/id_rsa.pub root@host -p9122
