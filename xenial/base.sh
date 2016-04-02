@@ -44,6 +44,11 @@ apt -y remove --purge policykit*
 cp ./tmpl/base/20auto-upgrades /etc/apt/apt.conf.d/
 cp ./tmpl/base/50unattended-upgrades /etc/apt/apt.conf.d/
 
+##### ROOT UTILS ##############################################################
+mkdir /root/bin/
+cp ./tmpl/base/kcleaner /root/bin/
+chmod 500 /root/bin/*
+
 ##### LIMPIEZA ################################################################
 apt -y autoremove --purge
 apt clean
