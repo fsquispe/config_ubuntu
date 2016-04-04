@@ -44,6 +44,10 @@ apt -y remove --purge policykit*
 cp ./tmpl/base/20auto-upgrades /etc/apt/apt.conf.d/
 cp ./tmpl/base/50unattended-upgrades /etc/apt/apt.conf.d/
 
+##### SSL CERTS ###############################################################
+apt -y install ssl-cert
+make-ssl-cert generate-default-snakeoil --force-overwrite
+
 ##### ROOT UTILS ##############################################################
 mkdir /root/bin/
 cp ./tmpl/base/kcleaner /root/bin/
