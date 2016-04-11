@@ -50,6 +50,7 @@ make-ssl-cert generate-default-snakeoil --force-overwrite
 
 ##### ROOT UTILS ##############################################################
 mkdir /root/bin/
+mkdir /root/tmpl/
 cp ./tmpl/base/kcleaner /root/bin/
 chmod 500 /root/bin/*
 
