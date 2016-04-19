@@ -41,6 +41,8 @@ apt -y remove --purge irqbalance
 apt -y remove --purge policykit*
 
 ##### ACTUALIZACIONES AUTOMATICAS #############################################
+apt install unattended-upgrades
+dpkg-reconfigure unattended-upgrades
 cp ./tmpl/base/20auto-upgrades /etc/apt/apt.conf.d/
 cp ./tmpl/base/50unattended-upgrades /etc/apt/apt.conf.d/
 
