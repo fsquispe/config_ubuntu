@@ -19,12 +19,9 @@
 
 # Here is entries for some specific programs
 # The following values assume you have at least 32M ram
-
 [client]
-# Default is Latin1, if you need UTF-8 set this (also in server section)
-port		= 3306
-socket		= /var/run/mysqld/mysqld.sock
-default-character-set = utf8 
+port            = 3306
+socket          = /var/run/mysqld/mysqld.sock
 
 [mysqld_safe]
 socket		= /var/run/mysqld/mysqld.sock
@@ -42,7 +39,7 @@ basedir		= /usr
 datadir		= /var/lib/mysql
 tmpdir		= /tmp
 lc-messages-dir	= /usr/share/mysql
-character-set-server  = utf8 
+character-set-server  = utf8
 collation-server      = utf8_general_ci
 skip-external-locking
 #
@@ -58,7 +55,7 @@ thread_stack		= 192K
 thread_cache_size       = 8
 # This replaces the startup script and checks MyISAM tables if needed
 # the first time they are touched
-myisam-recover         = BACKUP
+myisam-recover-options  = BACKUP
 #max_connections        = 100
 #table_cache            = 64
 #thread_concurrency     = 10
@@ -90,7 +87,7 @@ log_error = /var/log/mysql/error.log
 #       other settings you may need to change.
 #server-id		= 1
 #log_bin			= /var/log/mysql/mysql-bin.log
-#expire_logs_days	= 10
+#expire_logs_days	= 1
 #max_binlog_size   = 100M
 #binlog_do_db		= include_database_name
 #binlog_ignore_db	= include_database_name
@@ -99,17 +96,15 @@ log_error = /var/log/mysql/error.log
 #
 # InnoDB is enabled by default with a 10MB datafile in /var/lib/mysql/.
 # Read the manual for more InnoDB related options. There are many!
-
-default_storage_engine	= InnoDB
-innodb_buffer_pool_size	= 128M
-#innodb_log_buffer_size	= 8M
-innodb_file_per_table	= 1
-#innodb_open_files	= 400
-#innodb_io_capacity	= 400
-innodb_flush_method	= O_DIRECT
+default_storage_engine  = InnoDB
+innodb_buffer_pool_size = 128M
+#innodb_log_buffer_size = 8M
+innodb_file_per_table   = 1
+#innodb_open_files      = 400
+#innodb_io_capacity     = 400
+innodb_flush_method     = O_DIRECT
 innodb_ft_min_token_size= 2
 
-#
 # * Security Features
 local-infile = 0
 
