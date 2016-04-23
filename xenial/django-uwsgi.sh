@@ -13,4 +13,7 @@ npm install -g less
 npm install -g yuglify
 ##### UWSGI ###################################################################
 apt -y install uwsgi uwsgi-plugin-python uwsgi-plugin-python3
+##### PLANTILLAS ##############################################################
+mkdir /root/tmpl/
+cp ./tmpl/django-uwsgi/root/tmpl/* /root/tmpl/
 #EOF
