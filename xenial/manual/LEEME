@@ -4,6 +4,7 @@
 *) particiones extras montadas (swap,mysql,ssd)
 *) networking funcionado
 *) password inicial mysql/mariadb: "123456"
+*) OPCIONAL: dnsmasq: apt -y install dnsmasq: apt -y remove --purge resolvconf
 *) OPCIONAL: ntp server ntp.ubuntu.com (/etc/systemd/timesyncd.conf)
 *) OPCIONAL: bloquear ipv6 (http://www.binarytides.com/disable-ipv6-ubuntu/)
 *) OPCIONAL: Tweak Swap Settings (https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04)
