@@ -16,6 +16,7 @@ if useradd -m -s /bin/bash $uname
 	chmod 710 /home/$uname
 	chown $uname:$uname /home/$uname
 	chown -R $uname:$uname /home/$uname/tmp
+	chown -R $uname:$uname /home/$uname/sess
 	chown -R $uname:$uname /home/$uname/www
 
 	sed -e s/"uname"/"$uname"/g /root/tmpl/vhost.conf > /root/tmpl/vhost.conf.1
