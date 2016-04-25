@@ -19,6 +19,8 @@ vim /etc/hosts
 
 ##### REPOSITORIOS ############################################################
 cp ./tmpl/base/sources.list /etc/apt/
+apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+add-apt-repository 'deb [arch=amd64] http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu xenial main'
 apt update
 apt -y full-upgrade
 apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils

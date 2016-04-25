@@ -11,6 +11,7 @@ if useradd -m -s /bin/bash $uname
 	usermod -a -G $uname www-data
 		
 	mkdir /home/$uname/tmp
+	mkdir /home/$uname/sess
 	mkdir /home/$uname/www
 	chmod 710 /home/$uname
 	chown $uname:$uname /home/$uname
