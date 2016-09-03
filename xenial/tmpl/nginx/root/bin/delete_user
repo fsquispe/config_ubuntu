@@ -7,8 +7,8 @@ read -p "username: " uname
 rm /etc/nginx/sites-enabled/$uname
 systemctl restart nginx
 rm /etc/nginx/sites-available/$uname
-rm /etc/php5/fpm/pool.d/$uname.conf
-systemctl restart php5-fpm
+rm /etc/php7/fpm/pool.d/$uname.conf
+systemctl restart php7-fpm
 rm /var/log/nginx/$uname*
 userdel -r $uname
 groupdel $uname
