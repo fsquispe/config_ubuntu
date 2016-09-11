@@ -24,7 +24,7 @@ add-apt-repository 'deb [arch=amd64] http://sfo1.mirrors.digitalocean.com/mariad
 add-apt-repository ppa:alex-p/goaccess
 apt update
 apt -y full-upgrade
-apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils goaccess
+apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils goaccess apache2-utils libjpeg-dev
 
 ##### LIMPIEZA ################################################################
 /etc/init.d/apparmor stop
