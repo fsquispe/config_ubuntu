@@ -20,7 +20,8 @@ vim /etc/hosts
 ##### REPOSITORIOS ############################################################
 cp ./tmpl/base/sources.list /etc/apt/
 apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-add-apt-repository 'deb [arch=amd64] http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu xenial main'
+#add-apt-repository 'deb [arch=amd64] http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu xenial main'
+apt-key adv --keyserver keyserver.ubuntu.com --recv-key 073D307A618E5811
 add-apt-repository ppa:alex-p/goaccess
 apt update
 apt -y full-upgrade

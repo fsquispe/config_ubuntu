@@ -13,3 +13,6 @@ deb-src http://archive.ubuntu.com/ubuntu xenial-security multiverse universe res
 deb http://archive.ubuntu.com/ubuntu xenial-security universe
 deb http://archive.ubuntu.com/ubuntu xenial-security multiverse
 deb http://archive.ubuntu.com/ubuntu xenial-backports universe restricted multiverse main
+
+deb     http://qgis.org/debian xenial main
+deb-src http://qgis.org/debian xenial main
