@@ -1,0 +1,69 @@
+#!/bin/sh
+
+###############################################################################
+### CONFIGURADOR UBUNTU 16.04.1 ###############################################
+###############################################################################
+
+##### LANG ####################################################################
+apt -y install language-pack-es language-pack-es-base
+/usr/share/locales/install-language-pack es_PE
+vim /etc/default/locale
+vim /usr/share/i18n/locales/es_ES
+dpkg-reconfigure locales
+dpkg-reconfigure tzdata
+
+##### BASE ####################################################################
+apt -y install software-properties-common
+vim /etc/hostname
+vim /etc/hosts
+
+##### REPOSITORIOS ############################################################
+cp ./tmpl/base/sources.list /etc/apt/
+apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+#add-apt-repository 'deb [arch=amd64] http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu xenial main'
+apt-key adv --keyserver keyserver.ubuntu.com --recv-key 073D307A618E5811
+add-apt-repository ppa:alex-p/goaccess
+apt update
+apt -y full-upgrade
+apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils goaccess apache2-utils libjpeg-dev
+
+##### LIMPIEZA ################################################################
+/etc/init.d/apparmor stop
+update-rc.d -f apparmor remove
+apt -y remove --purge lxc
+apt -y remove --purge lxcfs
+apt -y remove --purge lxc*
+apt -y remove --purge mdadm
+apt -y remove --purge apparmor apparmor-utils
+apt -y remove --purge lib-apparmor
+apt -y remove --purge consolekit
+apt -y remove --purge language-pack-en
+apt -y remove --purge language-pack-en-base
+apt -y remove --purge sudo
+apt -y remove --purge landscape-common
+apt -y remove --purge irqbalance
+apt -y remove --purge policykit*
+
+##### ACTUALIZACIONES AUTOMATICAS #############################################
+apt install unattended-upgrades
+dpkg-reconfigure unattended-upgrades
+cp ./tmpl/base/20auto-upgrades /etc/apt/apt.conf.d/
+cp ./tmpl/base/50unattended-upgrades /etc/apt/apt.conf.d/
+
+##### GOACCESS ################################################################
+cp ./tmpl/base/goaccess.conf /etc/
+
+##### SSL CERTS ###############################################################
+apt -y install ssl-cert
+make-ssl-cert generate-default-snakeoil --force-overwrite
+
+##### ROOT UTILS ##############################################################
+mkdir /root/bin/
+mkdir /root/tmpl/
+cp ./tmpl/base/kcleaner /root/bin/
+chmod 500 /root/bin/*
+
+##### LIMPIEZA ################################################################
+apt -y autoremove --purge
+apt clean
+#EOF

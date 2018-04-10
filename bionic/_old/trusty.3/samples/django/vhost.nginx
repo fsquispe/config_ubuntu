@@ -1,0 +1,53 @@
+server {
+        listen 45.32.78.175:80;
+        server_name www.svr64.xyz;
+        return 301 http://svr64.xyz$request_uri;
+}
+
+server {
+        listen 45.32.78.175:80;
+        server_name svr64.xyz;
+        root /home/xyz64/www/;
+
+        access_log /var/log/nginx/xyz64_access.log;
+        error_log /var/log/nginx/xyz64_error.log;
+
+        location /static {
+                alias /home/xyz64/www/static/;
+                log_not_found off;
+                access_log off;
+        }
+
+        location / {
+                uwsgi_pass unix:///var/run/uwsgi/app/xyz64/socket;
+                include uwsgi_params;
+        }
+
+        include /etc/nginx/global.d/custom.conf;
+}
+
+server {
+        listen 45.32.78.175:9180;
+        server_name manage.svr64.xyz;
+        root /home/xyz64/www/;
+
+        ssl on;
+        ssl_certificate /etc/ssl/certs/manage.svr64.xyz.crt;
+        ssl_certificate_key /etc/ssl/private/manage.svr64.xyz.key;
+
+        access_log /var/log/nginx/xyz64_access.log;
+        error_log /var/log/nginx/xyz64_error.log;
+
+        location /static {
+                alias /home/xyz64/www/static/;
+                log_not_found off;
+                access_log off;
+        }
+
+        location / {
+                uwsgi_pass unix:///var/run/uwsgi/app/xyz64/socket;
+                include uwsgi_params;
+        }
+
+        include /etc/nginx/global.d/custom.conf;
+}

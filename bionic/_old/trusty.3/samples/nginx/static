@@ -1,0 +1,20 @@
+server {
+	listen 50.115.174.52:80;
+	server_name www.vipperutravel.com;
+	return 301 http://vipperutravel.com$request_uri;
+}
+
+server {
+	listen 50.115.174.52:80;
+	server_name vipperutravel.com;
+	root /home/vipperu/www/;
+
+	access_log /var/log/nginx/vipperu_access.log;
+	error_log /var/log/nginx/vipperu_error.log;
+
+	location / {
+		index index.html index.php index.htm;
+	}
+
+	include /etc/nginx/global.d/custom.conf;
+}

@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# crear usuario linux y sus respectivas entradas http, mysql, logs
+
+read -p "username: " uname
+read -p "domain: " domain
+#read -p "puerto: " nport
+
+if useradd -m -s /bin/bash $uname
+	then
+	passwd $uname
+		
+	mkdir /home/$uname/tmp
+	mkdir /home/$uname/www
+	chmod 710 /home/$uname
+	chown $uname:www-data /home/$uname
+	chown -R $uname:$uname /home/$uname/tmp
+	chown -R $uname:$uname /home/$uname/www
+
+	sed -e s/"uname"/"$uname"/g /root/tmpl/vhost.static.conf > /root/tmpl/vhost.static.conf.1
+	sed -e s/"domain"/"$domain"/g /root/tmpl/vhost.static.conf.1 > /etc/apache2/sites-available/$uname.conf
+	rm /root/tmpl/vhost.static.conf.*
+	chmod 644 /etc/apache2/sites-available/$uname.conf
+	a2ensite $uname
+
+	touch /var/log/apache2/$uname_access.log
+	touch /var/log/apache2/$uname_error.log
+	
+	service apache2 reload
+	echo "httpd configurado"
+else
+	echo "error al crear usuario"
+fi
