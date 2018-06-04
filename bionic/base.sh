@@ -1,14 +1,11 @@
 #!/bin/sh
 
 ###############################################################################
-### CONFIGURADOR UBUNTU 16.04.1 ###############################################
+### CONFIGURADOR UBUNTU 18.04 #################################################
 ###############################################################################
 
 ##### LANG ####################################################################
-apt -y install language-pack-es language-pack-es-base
-/usr/share/locales/install-language-pack es_PE
 vim /etc/default/locale
-vim /usr/share/i18n/locales/es_ES
 dpkg-reconfigure locales
 dpkg-reconfigure tzdata
 
@@ -19,10 +16,6 @@ vim /etc/hosts
 
 ##### REPOSITORIOS ############################################################
 cp ./tmpl/base/sources.list /etc/apt/
-apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-#add-apt-repository 'deb [arch=amd64] http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu xenial main'
-apt-key adv --keyserver keyserver.ubuntu.com --recv-key 073D307A618E5811
-add-apt-repository ppa:alex-p/goaccess
 apt update
 apt -y full-upgrade
 apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils goaccess apache2-utils libjpeg-dev
@@ -37,8 +30,6 @@ apt -y remove --purge mdadm
 apt -y remove --purge apparmor apparmor-utils
 apt -y remove --purge lib-apparmor
 apt -y remove --purge consolekit
-apt -y remove --purge language-pack-en
-apt -y remove --purge language-pack-en-base
 apt -y remove --purge sudo
 apt -y remove --purge landscape-common
 apt -y remove --purge irqbalance
@@ -48,7 +39,6 @@ apt -y remove --purge policykit*
 apt install unattended-upgrades
 dpkg-reconfigure unattended-upgrades
 cp ./tmpl/base/20auto-upgrades /etc/apt/apt.conf.d/
-cp ./tmpl/base/50unattended-upgrades /etc/apt/apt.conf.d/
 
 ##### GOACCESS ################################################################
 cp ./tmpl/base/goaccess.conf /etc/
