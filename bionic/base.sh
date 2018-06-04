@@ -30,6 +30,7 @@ apt -y remove --purge mdadm
 apt -y remove --purge apparmor apparmor-utils
 apt -y remove --purge lib-apparmor
 apt -y remove --purge consolekit
+export SUDO_FORCE_REMOVE=yes
 apt -y remove --purge sudo
 apt -y remove --purge landscape-common
 apt -y remove --purge irqbalance

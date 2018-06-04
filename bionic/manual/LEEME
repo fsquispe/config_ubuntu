@@ -28,6 +28,36 @@ network:
             optional: true
     version: 2
 <<<
+>>> Example2
+# This file is generated from information provided by
+# the datasource.  Changes to it will not persist across an instance.
+# To disable cloud-init's network configuration capabilities, write a file
+# /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
+# network: {config: disabled}
+network:
+    version: 2
+    ethernets:
+        eth0:
+            addresses:
+            - 206.189.168.1/20
+            - 10.46.0.5/16
+            gateway4: 206.189.160.1
+            match:
+                macaddress: da:e6:e3:43:0d:22
+            nameservers: &id001
+                addresses:
+                - 67.207.67.2
+                - 67.207.67.3
+                search: []
+            set-name: eth0
+        eth1:
+            addresses:
+            - 10.138.140.122/16
+            match:
+                macaddress: d6:e2:f4:ec:0a:aa
+            nameservers: *id001
+            set-name: eth1
+<<<
 
 *) NTP Server
 >>> /etc/systemd/timesyncd.conf
