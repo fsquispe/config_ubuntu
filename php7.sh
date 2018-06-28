@@ -1,14 +1,14 @@
 #!/bin/sh
 
 ###############################################################################
-##### PHP7-FPM Y CLI ##########################################################
+##### PHP7.2 -FPM Y CLI #######################################################
 ###############################################################################
-apt install -y php7.0 php7.0-curl php7.0-mysql php7.0-gd php7.0-intl php7.0-imap php7.0-mcrypt php7.0-recode php7.0-sqlite3 php7.0-pspell php7.0-xml php7.0-xmlrpc php7.0-xsl php7.0-tidy php7.0-zip php7.0-soap php7.0-mbstring php-pear php-memcache php-memcached php-imagick
+apt install -y php7.2 php7.2-curl php7.2-mysql php7.2-gd php7.2-intl php7.2-imap php7.2-mcrypt php7.2-recode php7.2-sqlite3 php7.2-pspell php7.2-xml php7.2-xmlrpc php7.2-xsl php7.2-tidy php7.2-zip php7.2-soap php7.2-mbstring php-pear php-memcache php-memcached php-imagick
 ##### CONFIGURACION ###########################################################
-cp ./tmpl/php7/php.ini /etc/php/7.0/cli/php.ini
-cp /etc/php/7.0/cli/php.ini /etc/php/7.0/fpm/php.ini
-rm /etc/php/7.0/fpm/pool.d/*
-systemctl restart php7.0-fpm
+cp ./tmpl/php7/php.ini /etc/php/7.2/cli/php.ini
+cp /etc/php/7.2/cli/php.ini /etc/php/7.2/fpm/php.ini
+rm /etc/php/7.2/fpm/pool.d/*
+systemctl restart php7.2-fpm
 ##### PLANTILLAS ##############################################################
 mkdir /root/tmpl/
 cp ./tmpl/php7/root/tmpl/* /root/tmpl/
