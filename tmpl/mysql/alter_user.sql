@@ -1,2 +1,2 @@
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pwd123';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
 FLUSH PRIVILEGES;
