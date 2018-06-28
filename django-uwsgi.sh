@@ -8,7 +8,7 @@ apt -y install python-dev python-mysqldb python-pip python-virtualenv pypy pypy-
 apt -y install nodejs npm
 ln -s /usr/bin/nodejs /usr/local/bin/node
 npm install -g stylus
-npm install -g coffee-script
+npm install -g coffeescript
 npm install -g less
 npm install -g yuglify
 ##### UWSGI ###################################################################
