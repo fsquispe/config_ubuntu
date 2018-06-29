@@ -9,7 +9,4 @@ cp ./tmpl/php72/php.ini /etc/php/7.2/cli/php.ini
 cp /etc/php/7.2/cli/php.ini /etc/php/7.2/fpm/php.ini
 rm /etc/php/7.2/fpm/pool.d/*
 systemctl restart php7.2-fpm
-##### PLANTILLAS ##############################################################
-mkdir /root/tmpl/
-cp ./tmpl/php72/root/tmpl/* /root/tmpl/
 #EOF
