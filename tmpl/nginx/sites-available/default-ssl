@@ -1,6 +1,6 @@
 server {
 	listen MY_IP:9180 default_server;
-	server_name localhost;
+	server_name _;
 	root /var/www/html/;
 
 	ssl on;
