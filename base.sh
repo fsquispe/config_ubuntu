@@ -16,9 +16,11 @@ vim /etc/hosts
 
 ##### REPOSITORIOS ############################################################
 cp ./tmpl/base/sources.list /etc/apt/
+add-apt-repository ppa:certbot/certbot
+add-apt-repository ppa:webupd8team/java
 apt update
 apt -y full-upgrade
-apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils goaccess apache2-utils libjpeg-dev
+apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils goaccess apache2-utils libjpeg-dev certbot
 
 ##### LIMPIEZA ################################################################
 /etc/init.d/apparmor stop
