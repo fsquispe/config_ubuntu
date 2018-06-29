@@ -53,8 +53,11 @@ make-ssl-cert generate-default-snakeoil --force-overwrite
 ##### ROOT UTILS ##############################################################
 mkdir /root/bin/
 mkdir /root/tmpl/
+mkdir /root/tmpl/snippets/
 cp ./tmpl/base/kcleaner /root/bin/
 chmod 500 /root/bin/*
+cp ./tmpl/snippets/* /root/tmpl/snippets/
+chmod 400 /root/tmpl/snippets/*
 
 ##### LIMPIEZA ################################################################
 apt -y autoremove --purge
