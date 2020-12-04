@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ###############################################################################
-### CONFIGURADOR UBUNTU 18.04 #################################################
+### CONFIGURADOR UBUNTU 20.04.1 ###############################################
 ###############################################################################
 
 ##### LANG ####################################################################
@@ -16,8 +16,6 @@ vim /etc/hosts
 
 ##### REPOSITORIOS ############################################################
 cp ./tmpl/base/sources.list /etc/apt/
-add-apt-repository ppa:certbot/certbot
-add-apt-repository ppa:webupd8team/java
 apt update
 apt -y full-upgrade
 apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils goaccess apache2-utils libjpeg-dev certbot
@@ -36,7 +34,8 @@ export SUDO_FORCE_REMOVE=yes
 apt -y remove --purge sudo
 apt -y remove --purge landscape-common
 apt -y remove --purge irqbalance
-apt -y remove --purge policykit*
+apt -y remove --purge multipath-tools
+apt -y remove --purge policykit-1
 
 ##### ACTUALIZACIONES AUTOMATICAS #############################################
 apt install unattended-upgrades
@@ -44,7 +43,7 @@ dpkg-reconfigure unattended-upgrades
 cp ./tmpl/base/20auto-upgrades /etc/apt/apt.conf.d/
 
 ##### GOACCESS ################################################################
-cp ./tmpl/base/goaccess.conf /etc/
+cp ./tmpl/base/goaccess.conf /etc/goaccess/
 
 ##### SSL CERTS ###############################################################
 apt -y install ssl-cert
