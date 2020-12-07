@@ -36,6 +36,7 @@ apt -y remove --purge landscape-common
 apt -y remove --purge irqbalance
 apt -y remove --purge multipath-tools
 apt -y remove --purge policykit-1
+apt -y remove --purge containerd
 
 ##### ACTUALIZACIONES AUTOMATICAS #############################################
 apt install unattended-upgrades
