@@ -1,9 +1,8 @@
 server {
-	listen MY_IP:9180 default_server;
+	listen MY_IP:9180 ssl default_server;
 	server_name _;
 	root /var/www/html/;
 
-	ssl on;
 	ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
 	ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
 
