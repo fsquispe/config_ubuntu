@@ -30,12 +30,13 @@ apt -y remove --purge mdadm
 apt -y remove --purge apparmor apparmor-utils
 apt -y remove --purge lib-apparmor
 apt -y remove --purge consolekit
-export SUDO_FORCE_REMOVE=yes
-apt -y remove --purge sudo
+# export SUDO_FORCE_REMOVE=yes
+# apt -y remove --purge sudo
 apt -y remove --purge landscape-common
 apt -y remove --purge irqbalance
 apt -y remove --purge multipath-tools
 apt -y remove --purge policykit-1
+apt -y remove --purge fwupd
 apt -y remove --purge containerd
 
 ##### ACTUALIZACIONES AUTOMATICAS #############################################
