@@ -1,55 +1,257 @@
 #!/bin/bash
-# Script que elimina todos los kernels salvo el que se encuentra en uso.
-# Debe ejecutarse como root
 
-# Variables, config
-declare -r VERSION="2.0"
+############################################################
+# Script que elimina todos los kernels salvo el que se
+# encuentra en uso (MODO=1), o salvo el que se encuentra
+# en uso y el anterior (MODO=2).
+#
+# **************************************************************
+# ** NO ME RESPONSABILIZO POR DAÑOS QUE PUDIERAN SER CAUSADOS **
+# ** SEA POR BUEN O MAL USO DE ESTE SCRIPT                    **
+# **************************************************************
+#
+# by HacKan @ HacKan & CuBa co. 2012, 2013, 2015
+# http://blog.linuxnoblog.com.ar/2015/04/eliminar-kernels-antiguos/
+# http://www.hackan.com.ar/2012/02/bash-script-eliminar-kernels-antiguos/
+# basado en http://www.ubuntubuzz.com/2012/02/script-remove-unused-old-kernel.html
+# visto en http://www.taringa.net/posts/linux/14108602/Script-para-eliminar-kernels-anticuados-de-nuestro-sistema_.html
+#
+# Notas
+#  ** Debe ejecutarse como root **
+#  La salida de informacion del programa se modifica con
+#  los parametros CONSOLA, LOG (syslog) y POPUP (notify-osd).
+#  Si los tres son 0, el programa funciona en modo silecioso.
+#  Mas informacion en la web.
+#
+# Changelog
+#
+# v4.2
+# - Codigo mejorado ligeramente
+#
+#  v4.1
+#  - Corregido un bug en la llamada a requisitos()
+#
+#  v4.0
+#  - Un poco de rediseño
+#
+#  v3.2
+#  - Agregado modo de prueba (NORUN)
+#
+#  v3.1
+#  - Corregidos bugs menores
+#
+#  v3.0
+#  - KernelCleaner1, KernelCleaner2, KernelCleanerC
+#  y KernelCleanerG unificados
+#  - Opciones seleccionables en script
+#
+#       v2.0
+#       - Codigo mas prolijo
+#       - Gracias Manolo (Envido32) por las sugerencias
+#
+#       v1.0
+#       - Primera version funcional
+############################################################
+
+# Config
+############################################################
+declare -r VERSION="4.0"
+declare -r TITULO="KernelCleaner"
+
+# MODO=1 : KernelCleaner1
+# MODO=2 : KernelCleaner2
+declare -ir MODO=2
+
+# CONSOLA=0 : No muestra mensajes en consola
+# CONSOLA=1 : Muestra mensajes en consola
+declare -ir CONSOLA=1
+
+# LOG=0 : No guarda mensajes
+# LOG=1 : Guarda mensajes en /var/log/syslog
+#    (requiere comando logger)
+declare -i LOG=0
+
+# POPUP=0 : No muestra mensajes gráficos
+# POPUP=1 : Muestra mensajes gráficos (requiere notify-send)
+declare -i POPUP=0
+
+# ENCABEZADO=0 : No muestra encabezado
+# ENCABEZADO=1 : Muestra encabezado (solo por consola)
+declare -ir ENCABEZADO=1
+
+# Config avanzada
+############################################################
+# NORUN=1 : Modo de prueba o debug, no elimina kernels ni
+#    modifica grub/burg
+# NORUN=0 : Modo normal
+declare -ir NORUN=0
+############################################################
+
+# Variables internas, no editar
+############################################################
+declare -ir EXIT_FAILURE=1
+declare -ir EXIT_SUCCESS=0
+declare -i ECODE=0
+declare -r TMPFILE="$(tempfile -p "kc${MODO}-")"
+declare -a KERNELS=( )
+############################################################
 
 # Funciones
-function print_title {
-	echo "** KernelCleaner1 v${VERSION}"
-	echo
+############################################################
+function requisitos {
+  # Verifica requisitos, invalida config de usuario
+  local -i ERR=0;
+  
+  # logger
+  logger -V > /dev/null 2>&1
+  if [ $? -ne 0 ]; then 
+    LOG=0
+    ERR=1
+  fi
+
+  # notify-send
+  notify-send -v > /dev/null 2>&1
+  if [ $? -ne 0 ]; then 
+    POPUP=0
+    ERR=1
+  fi
+  
+  return $ERR
+}
+
+function _econ {
+  if [ ${CONSOLA} -eq 1 ]; then
+    echo "$@"
+  fi
+}
+
+function _elog {
+  if [ ${LOG} -eq 1 ]; then
+    logger -t "${TITULO} v${VERSION}" "$@"
+  fi
+}
+
+function _epop {
+  if [ ${POPUP} -eq 1 ]; then
+    notify-send "${TITULO} v${VERSION}" "$@"
+  fi
+}
+
+function _e {
+  _econ "** $*"
+  _elog "$@"
+  _epop "$@"
+}
+
+function _ee {
+  if [ ${CONSOLA} -eq 1 ]; then
+    cat "${TMPFILE}"
+  fi
+  if [ ${LOG} -eq 1 ]; then
+    logger -t "${TITULO} v${VERSION}" < "${TMPFILE}"
+  fi
+  if [ ${POPUP} -eq 1 ]; then
+    xargs -0 notify-send "${TITULO} v${VERSION}" < "${TMPFILE}"
+  fi
+}
+
+function print_header {
+  if [ ${ENCABEZADO} -eq 1 ]; then
+    # No loggeo encabezado
+    _econ
+    _econ "KernelCleaner modo ${MODO} v${VERSION} by HacKan & CuBa co."
+    _econ "http://www.hackan.com.ar/2012/02/bash-script-eliminar-kernels-antiguos"
+    _econ
+    _epop "by HacKan & CuBa co.\nhttp://www.hackan.com.ar/2012/02/bash-script-eliminar-kernels-antiguos"
+  fi
+}
+
+function print_mode {
+  if [ ${NORUN} -ne 0 ]; then
+    _e "ATENCION: Modo de prueba.  No se realizan cambios en el sistema"
+  fi
 }
 
 function desinstalar {
-	echo "** Desinstalando $1..."
-	apt-get -y remove $1
-	echo "** Hecho"
+  _e "Desinstalando $*..."
+  if [ ${NORUN} -eq 0 ]; then
+    apt-get -qy remove "$@" >> "${TMPFILE}" 2>&1
+  else
+    apt-get -qys remove "$@" >> "${TMPFILE}" 2>&1
+  fi
+  _ee
+  _e "Hecho"
 }
 
 function get_kernel_list {
-	# kc1
-	ls /boot/ | grep vmlinuz | sed 's@vmlinuz-@linux-image-@g' | grep -v `uname -r` > /tmp/kernelList
-	#kc2
-	#ls /boot/ | grep vmlinuz | sed 's@vmlinuz-@linux-image-@g' | sed  '$d' | sed '$d' > /tmp/kernelList
+  if [ ${MODO} -eq 1 ]; then
+    # kc1
+    ls /boot/ | grep vmlinuz | sed 's@vmlinuz-@linux-image-@g' | grep -v "$(uname -r)"
+  else
+    #kc2
+    ls /boot/ | grep vmlinuz | sed 's@vmlinuz-@linux-image-@g' | sed  '$d' | sed '$d'
+  fi
 }
 
-# Principal
-print_title
+function actualizar_grub {
+  _e "Actualizando GRUB..."
+  if [ ${NORUN} -eq 0 ]; then
+    update-grub >> "${TMPFILE}" 2>&1
+    if [ $? -eq 0 ]; then
+      _e "GRUB actualizado satifactoriamente"
+    else
+      _e "Fallo la actualización de GRUB"
+      _e "Mas informacion en ${TMPFILE}"
+    fi
+  fi
+}
 
-if [ "`whoami`" = "root" ]; then
-	get_kernel_list
-	if [ -s /tmp/kernelList ]; then
-		for i in `cat /tmp/kernelList`; do
-			desinstalar $i
-			i="`echo $i|sed 's@image@headers@g'`"
-			desinstalar $i
-		done
-		rm -f /tmp/kernelList
-		echo "** Actualizando GRUB..."
-		update-grub
-		echo "** Hecho"
-		burg-probe -V > /dev/null 2>&1
-		if [ $? -eq 0 ]; then
-			echo "** Actualizando BURG..."
-			update-burg
-			echo "** Hecho"
-		fi
-	else
-		echo "** No hay kernels antiguos que eliminar"
-	fi
-else
-	echo "** Usted no es root"
+function actualizar_burg {
+  burg-probe -V > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    _e "Actualizando BURG..."
+    if [ ${NORUN} -eq 0 ]; then
+      update-burg >> "${TMPFILE}" 2>&1
+      if [ $? -eq 0 ]; then
+        _e "BURG actualizado satifactoriamente"
+      else
+        _e "Fallo la actualización de BURG"
+        _e "Mas informacion en ${TMPFILE}"
+      fi
+    fi
+  fi
+}
+
+############################################################
+
+# Programa
+############################################################
+requisitos
+if [ $? -ne 0 ]; then
+  _e "Atencion: Requisitos incumplidos.  Algunas caracteristicas podrian no funcionar"
 fi
-echo "** Terminado"
-exit 0
+
+print_header
+print_mode
+
+if [ "$(whoami)" = "root" ]; then
+  KERNELS=$(get_kernel_list)
+  if [ -n "${KERNELS}" ]; then
+    for KERNEL in "${KERNELS[@]}"; do
+      desinstalar "$KERNEL" "${KERNEL//image/headers}"
+    done
+    actualizar_grub
+    actualizar_burg
+  else
+    _e "No hay kernels antiguos que eliminar"
+  fi
+  ECODE=${EXIT_SUCCESS}
+else
+  _e "Usted no es root"
+  _e "Ejecute $0 como root"
+  ECODE=${EXIT_FAILURE}
+fi
+
+_e "Terminado"
+exit ${ECODE}
+############################################################

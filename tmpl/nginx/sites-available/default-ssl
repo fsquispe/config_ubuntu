@@ -1,13 +1,13 @@
 server {
-	listen MY_IP:443 ssl default_server;
-	server_name _;
-	root /var/www/html/;
+  listen 443 ssl default_server;
+  server_name _;
+  root /var/www/html/;
 
-	ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
-	ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+  ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
+  ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
 
-	access_log /var/log/nginx/ssl_access.log;
-	error_log /var/log/nginx/ssl_error.log;
+  access_log /var/log/nginx/ssl_access.log;
+  error_log /var/log/nginx/ssl_error.log;
 
-	include /etc/nginx/global.d/custom.conf;
+  include /etc/nginx/global.d/custom.conf;
 }
