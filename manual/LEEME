@@ -82,16 +82,16 @@ vm.vfs_cache_pressure = 50
 *) Forzar TLS 1.2 (https://github.com/mkleehammer/pyodbc/issues/610)
 >>> /etc/ssl/openssl.cnf
 You need to add this to the beginning of your config file at /etc/ssl/openssl.cnf
-    openssl_conf = default_conf
-    
+openssl_conf = default_conf
+
 And then this to the end:
-    [ default_conf ]
-    ssl_conf = ssl_sect
+[ default_conf ]
+ssl_conf = ssl_sect
 
-    [ssl_sect]
-    system_default = system_default_sect
+[ssl_sect]
+system_default = system_default_sect
 
-    [system_default_sect]
-    MinProtocol = TLSv1.2
-    CipherString = DEFAULT:@SECLEVEL=1
+[system_default_sect]
+MinProtocol = TLSv1.2
+CipherString = DEFAULT:@SECLEVEL=1
 <<<
