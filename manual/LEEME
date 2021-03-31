@@ -1,7 +1,7 @@
 # Configuración manual
 
 *) ssh y ssh_keys instaladas
-    > ssh-copy-id -i .ssh/id_rsa.pub root@host -p9122
+  > ssh-copy-id -i .ssh/id_rsa.pub root@host -p9122
 
 *) particiones extras montadas (swap,mysql,ssd)
 *) kernel updates y grub
@@ -15,18 +15,18 @@
 # /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
 # network: {config: disabled}
 network:
-    ethernets:
-        LAN_INTERFACE:
-            addresses:
-            - MY_IP/NETMASK(in bitmask format)
-            gateway4: GATEWAY
-            nameservers:
-                addresses:
-                - MY_DNS_IP1
-                - MY_DNS_IP2
-                search: []
-            optional: true
-    version: 2
+  ethernets:
+    LAN_INTERFACE:
+      addresses:
+      - MY_IP/NETMASK(in bitmask format)
+      gateway4: GATEWAY
+      nameservers:
+        addresses:
+        - MY_DNS_IP1
+        - MY_DNS_IP2
+        search: []
+      optional: true
+  version: 2
 <<<
 >>> Example2
 # This file is generated from information provided by
@@ -35,28 +35,28 @@ network:
 # /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
 # network: {config: disabled}
 network:
-    version: 2
-    ethernets:
-        eth0:
-            addresses:
-            - 206.189.168.1/20
-            - 10.46.0.5/16
-            gateway4: 206.189.160.1
-            match:
-                macaddress: da:e6:e3:43:0d:22
-            nameservers: &id001
-                addresses:
-                - 67.207.67.2
-                - 67.207.67.3
-                search: []
-            set-name: eth0
-        eth1:
-            addresses:
-            - 10.138.140.122/16
-            match:
-                macaddress: d6:e2:f4:ec:0a:aa
-            nameservers: *id001
-            set-name: eth1
+  version: 2
+  ethernets:
+    eth0:
+      addresses:
+      - 206.189.168.1/20
+      - 10.46.0.5/16
+      gateway4: 206.189.160.1
+      match:
+        macaddress: da:e6:e3:43:0d:22
+      nameservers: &id001
+        addresses:
+        - 67.207.67.2
+        - 67.207.67.3
+        search: []
+      set-name: eth0
+    eth1:
+      addresses:
+      - 10.138.140.122/16
+      match:
+        macaddress: d6:e2:f4:ec:0a:aa
+      nameservers: *id001
+      set-name: eth1
 <<<
 
 *) NTP Server
@@ -77,4 +77,21 @@ net.ipv6.conf.lo.disable_ipv6 = 1
 # Swap settings
 vm.swappiness = 10
 vm.vfs_cache_pressure = 50
+<<<
+
+*) Forzar TLS 1.2 (https://github.com/mkleehammer/pyodbc/issues/610)
+>>> /etc/ssl/openssl.cnf
+You need to add this to the beginning of your config file at /etc/ssl/openssl.cnf
+    openssl_conf = default_conf
+    
+And then this to the end:
+    [ default_conf ]
+    ssl_conf = ssl_sect
+
+    [ssl_sect]
+    system_default = system_default_sect
+
+    [system_default_sect]
+    MinProtocol = TLSv1.2
+    CipherString = DEFAULT:@SECLEVEL=1
 <<<
