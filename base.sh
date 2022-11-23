@@ -23,6 +23,7 @@ apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar
 ##### LIMPIEZA ################################################################
 /etc/init.d/apparmor stop
 update-rc.d -f apparmor remove
+apt -y remove --purge needrestart
 apt -y remove --purge lxc
 apt -y remove --purge lxcfs
 apt -y remove --purge lxc*
