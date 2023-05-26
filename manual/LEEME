@@ -95,3 +95,8 @@ system_default = system_default_sect
 MinProtocol = TLSv1.2
 CipherString = DEFAULT:@SECLEVEL=1
 <<<
+
+*) Journalctl max usage
+>>> /etc/systemd/journald.conf
+SystemMaxUse=1G
+<<<
