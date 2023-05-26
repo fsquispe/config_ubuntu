@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# crear usuario de sistema
+
+read -p "username: " uname
+
+if useradd --system --shell=/usr/sbin/nologin --create-home $uname
+  then
+  passwd $uname
+  chmod 710 /home/$uname
+  chown $uname:$uname /home/$uname
+
+  echo "usuario creado"
+else
+  echo "error al crear usuario"
+fi

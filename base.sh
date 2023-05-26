@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ###############################################################################
-### CONFIGURADOR UBUNTU 22.04.1 ###############################################
+### CONFIGURADOR UBUNTU 22.04.2 ###############################################
 ###############################################################################
 
 ##### LANG ####################################################################
@@ -52,12 +52,11 @@ make-ssl-cert generate-default-snakeoil --force-overwrite
 
 ##### ROOT UTILS ##############################################################
 mkdir /root/bin/
-mkdir /root/tmpl/
-mkdir /root/tmpl/snippets/
-cp ./tmpl/base/kcleaner /root/bin/
+mkdir /root/snippets/
+cp ./tmpl/root/bin/* /root/bin/
+cp ./tmpl/root/snippets/* /root/snippets/
 chmod 500 /root/bin/*
-cp ./tmpl/snippets/* /root/tmpl/snippets/
-chmod 400 /root/tmpl/snippets/*
+chmod 400 /root/snippets/*
 
 ##### LIMPIEZA ################################################################
 apt -y autoremove --purge

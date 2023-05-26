@@ -8,6 +8,4 @@ server {
 
   access_log /var/log/nginx/ssl_access.log;
   error_log /var/log/nginx/ssl_error.log;
-
-  include /etc/nginx/global.d/custom.conf;
 }
