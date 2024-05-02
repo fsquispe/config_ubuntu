@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ###############################################################################
-### CONFIGURADOR UBUNTU 22.04.2 ###############################################
+### CONFIGURADOR UBUNTU 24.04 #################################################
 ###############################################################################
 
 ##### LANG ####################################################################
@@ -37,6 +37,7 @@ apt -y remove --purge multipath-tools
 apt -y remove --purge policykit-1
 apt -y remove --purge fwupd
 apt -y remove --purge containerd
+apt -y remove --purge polkitd
 
 ##### ACTUALIZACIONES AUTOMATICAS #############################################
 apt install unattended-upgrades
