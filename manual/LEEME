@@ -7,6 +7,18 @@
 *) particiones extras montadas (swap,mysql,ssd)
 *) kernel updates y grub
 *) password inicial mysql/mariadb: "123456"
+*) eliminar snap (opcional) (https://www.debugpoint.com/remove-snap-ubuntu/)
+  > sudo snap list
+  > sudo snap remove --purge pkg_xyz
+  > sudo snap remove --purge pkg_xyz
+  > sudo snap remove --purge snapd
+  > sudo apt remove --autoremove snapd
+  
+>>> /etc/apt/preferences.d/nosnap.pref
+Package: snapd
+Pin: release a=*
+Pin-Priority: -10
+<<<
 
 *) networking funcionado
 >>> /etc/netplan/50-cloud-init.yaml
