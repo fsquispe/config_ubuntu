@@ -8,11 +8,11 @@
 *) kernel updates y grub
 *) password inicial mysql/mariadb: "123456"
 *) eliminar snap (opcional) (https://www.debugpoint.com/remove-snap-ubuntu/)
-  > sudo snap list
-  > sudo snap remove --purge pkg_xyz
-  > sudo snap remove --purge pkg_xyz
-  > sudo snap remove --purge snapd
-  > sudo apt remove --autoremove snapd
+  > snap list
+  > snap remove --purge pkg_xyz
+  > snap remove --purge pkg_xyz
+  > snap remove --purge snapd
+  > apt remove --autoremove snapd
   
 >>> /etc/apt/preferences.d/nosnap.pref
 Package: snapd
