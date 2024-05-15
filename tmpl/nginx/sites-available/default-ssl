@@ -1,11 +1,22 @@
 server {
   listen 443 ssl default_server;
+  listen [::]:443 ssl default_server;
   server_name _;
+  
   root /var/www/html/;
-
+  index index.html index.htm;
+  
   ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
   ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+  
+  location / {
+    try_files $uri $uri/ =404;
+  }
+  
+  #location ~ /\.ht {
+  #  deny all;
+  #}
 
-  access_log /var/log/nginx/ssl_access.log;
-  error_log /var/log/nginx/ssl_error.log;
+  access_log /var/log/nginx/access.log;
+  error_log /var/log/nginx/error.log;
 }
