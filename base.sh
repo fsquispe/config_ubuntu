@@ -15,10 +15,9 @@ vim /etc/hostname
 vim /etc/hosts
 
 ##### REPOSITORIOS ############################################################
-cp ./tmpl/base/sources.list /etc/apt/
 apt update
 apt -y full-upgrade
-apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils goaccess apache2-utils libjpeg-dev certbot net-tools ncdu tree aptitude btop
+apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils goaccess apache2-utils libjpeg-dev certbot net-tools ncdu tree aptitude btop git
 
 ##### LIMPIEZA ################################################################
 /etc/init.d/apparmor stop

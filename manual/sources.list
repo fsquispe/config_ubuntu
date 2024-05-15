@@ -1,0 +1,14 @@
+deb http://archive.ubuntu.com/ubuntu noble main restricted
+deb-src http://archive.ubuntu.com/ubuntu noble multiverse main universe restricted
+deb http://archive.ubuntu.com/ubuntu noble-updates main restricted
+deb-src http://archive.ubuntu.com/ubuntu noble-updates multiverse main universe restricted 
+deb http://archive.ubuntu.com/ubuntu noble universe
+deb http://archive.ubuntu.com/ubuntu noble-updates universe
+deb http://archive.ubuntu.com/ubuntu noble multiverse
+deb http://archive.ubuntu.com/ubuntu noble-updates multiverse
+deb http://archive.ubuntu.com/ubuntu noble-backports main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu noble-backports main restricted universe multiverse 
+deb http://archive.ubuntu.com/ubuntu noble-security main restricted
+deb-src http://archive.ubuntu.com/ubuntu noble-security multiverse main universe restricted 
+deb http://archive.ubuntu.com/ubuntu noble-security universe
+deb http://archive.ubuntu.com/ubuntu noble-security multiverse

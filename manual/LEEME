@@ -3,6 +3,7 @@
 *) ssh y ssh_keys instaladas
   > ssh-copy-id -i .ssh/id_rsa.pub root@host -p9122
 
+*) Repositorios Mirrors (/etc/apt/sources)
 *) particiones extras montadas (swap,mysql,ssd)
 *) kernel updates y grub
 *) password inicial mysql/mariadb: "123456"

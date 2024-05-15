@@ -3,7 +3,7 @@
 # This is the sshd server system-wide configuration file.  See
 # sshd_config(5) for more information.
 
-# This sshd was compiled with PATH=/usr/bin:/bin:/usr/sbin:/sbin
+# This sshd was compiled with PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 
 # The strategy used for options in the default sshd_config shipped with
 # OpenSSH is to specify options with their default value where
@@ -14,7 +14,7 @@
 #AddressFamily any
 #ListenAddress 0.0.0.0
 #ListenAddress ::
-ListenAddress MY_IP
+#ListenAddress MY_IP
 
 Protocol 2
 #HostKey /etc/ssh/ssh_host_rsa_key
@@ -62,6 +62,7 @@ PermitEmptyPasswords no
 # Change to yes to enable challenge-response passwords (beware issues with
 # some PAM modules and threads)
 ChallengeResponseAuthentication no
+KbdInteractiveAuthentication no
 
 # Kerberos options
 #KerberosAuthentication no
