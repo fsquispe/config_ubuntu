@@ -5,6 +5,7 @@
 
 *) Repositorios Mirrors (/etc/apt/sources)
 *) particiones extras montadas (swap,mysql,ssd)
+   > https://linuxize.com/post/how-to-add-swap-space-on-ubuntu-20-04/
 *) kernel updates y grub
 *) password inicial mysql/mariadb: "123456"
 *) eliminar snap (opcional) (https://www.debugpoint.com/remove-snap-ubuntu/)
