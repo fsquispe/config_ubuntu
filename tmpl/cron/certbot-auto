@@ -1,4 +1,36 @@
 #!/bin/sh
+LOGFILE="/var/log/nginx/cert_renew.log"
+WAIT_TIME=10
 
-systemctl stop nginx && certbot renew && systemctl start nginx
+echo "Starting Nginx and Certbot renewal process..." | tee -a $LOGFILE
+
+{
+  systemctl stop nginx && echo "Nginx stopped successfully." | tee -a $LOGFILE
+} || {
+  echo "Failed to stop Nginx." | tee -a $LOGFILE
+  exit 1
+}
+
+echo "Waiting for $WAIT_TIME seconds before renewing certificates..." | tee -a $LOGFILE
+sleep $WAIT_TIME
+
+{
+  certbot renew && echo "Certificates renewed successfully." | tee -a $LOGFILE
+} || {
+  echo "Failed to renew certificates." | tee -a $LOGFILE
+  systemctl start nginx
+  exit 1
+}
+
+echo "Waiting for $WAIT_TIME seconds before starting Nginx..." | tee -a $LOGFILE
+sleep $WAIT_TIME
+
+{
+  systemctl start nginx && echo "Nginx started successfully." | tee -a $LOGFILE
+} || {
+  echo "Failed to start Nginx." | tee -a $LOGFILE
+  exit 1
+}
+
+echo "Nginx and Certbot renewal process completed." | tee -a $LOGFILE
 #EOF
