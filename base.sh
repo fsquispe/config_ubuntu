@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ###############################################################################
-### CONFIGURADOR UBUNTU 24.04 #################################################
+### CONFIGURADOR UBUNTU 26.04 #################################################
 ###############################################################################
 
 ##### LANG ####################################################################
@@ -17,7 +17,7 @@ vim /etc/hosts
 ##### REPOSITORIOS ############################################################
 apt update
 apt -y full-upgrade
-apt -y install build-essential htop vim zip unzip rar unace p7zip-full p7zip-rar sharutils mpack arj git screen dnsutils goaccess apache2-utils libjpeg-dev certbot net-tools ncdu tree aptitude btop git
+apt -y install build-essential htop vim zip unzip rar unace p7zip-full sharutils mpack arj git screen dnsutils goaccess apache2-utils libjpeg-dev certbot net-tools ncdu tree aptitude btop git
 
 ##### LIMPIEZA ################################################################
 /etc/init.d/apparmor stop
