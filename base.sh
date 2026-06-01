@@ -37,6 +37,8 @@ apt -y remove --purge policykit-1
 apt -y remove --purge fwupd
 apt -y remove --purge containerd
 apt -y remove --purge polkitd
+apt -y remove --purge apparmor
+apt -y remove --purge ufw
 
 ##### ACTUALIZACIONES AUTOMATICAS #############################################
 apt install unattended-upgrades
