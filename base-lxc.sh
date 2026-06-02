@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ###############################################################################
-### CONFIGURADOR UBUNTU 24.04 #################################################
+### CONFIGURADOR UBUNTU 26.04 LXC #############################################
 ###############################################################################
 
 ##### LANG ####################################################################
@@ -37,6 +37,8 @@ apt -y remove --purge fwupd
 apt -y remove --purge containerd
 apt -y remove --purge polkitd
 apt -y remove --purge postfix
+apt -y remove --purge apparmor
+apt -y remove --purge ufw
 
 ##### ACTUALIZACIONES AUTOMATICAS #############################################
 apt install unattended-upgrades
