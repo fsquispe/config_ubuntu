@@ -39,6 +39,7 @@ apt -y remove --purge containerd
 apt -y remove --purge polkitd
 apt -y remove --purge apparmor
 apt -y remove --purge ufw
+apt -y remove --purge kdump-tools
 
 ##### ACTUALIZACIONES AUTOMATICAS #############################################
 apt install unattended-upgrades
